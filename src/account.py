@@ -32,6 +32,9 @@ class Account:
         button2Hover = False
         signup = pygame.font.Font("assets/font/font.ttf", 25).render("Sign Up", True, (0, 0, 0))
         login = pygame.font.Font("assets/font/font.ttf", 25).render("Login", True, (0, 0, 0))
+        titleTop = pygame.font.Font("assets/font/font.ttf", 25).render("Fantasy", True, (0, 0, 0))
+        titleBottom = pygame.font.Font("assets/font/font.ttf", 25).render("Football", True, (0, 0, 0))
+        ball = pygame.transform.scale(pygame.image.load("assets/image/ball.png"), (70, 70))
         while onMenu:
             self.screen.fill((0, 158, 5))
             pos = pygame.mouse.get_pos()
@@ -50,6 +53,9 @@ class Account:
                 button2Hover = True
             self.screen.blit(signup, (65, 395))
             self.screen.blit(login, (90, 525))
+            self.screen.blit(titleTop, (45,100))
+            self.screen.blit(titleBottom, (50, 150))
+            self.screen.blit(ball, (100, 200))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     onMenu = False
@@ -59,8 +65,33 @@ class Account:
                         return 2
                     elif button2Hover:
                         return 1
-                    
+
+            pygame.display.flip()            
+
+    def signup(self):
+        onSignup = True
+        while onSignup:
+            self.screen.fill((0, 158, 5))
+            pos = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    onSignup = False
+                    return -1
             pygame.display.flip()
+
+
+
+    def login(self):
+        onLogin = True
+        while onLogin:
+            self.screen.fill((0, 158, 5))
+            pos = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    onLogin = False
+                    return -1
+            pygame.display.flip()
+
 
 account = Account(pygame.display.set_mode((324, 720)))
 account.screenNum()
