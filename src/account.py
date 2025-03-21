@@ -116,6 +116,10 @@ class Account:
                         text4Selected = False
                     print("123")
                     if button3Hover:
+                        f = open("src/userData.txt", "a")
+                        f.write(user_text3 + "\n")
+                        f.write(user_text4 + "\n")
+                        f.close()
                         print("Yes")
                         return 3
                 else:
@@ -149,7 +153,6 @@ class Account:
                 if event.type == pygame.QUIT:
                     onSignup = False
                     return -1
-                #elif event.type == pygame.MOUSEBUTTONDOWN:
                     
                         
             clock.tick(60)
@@ -223,56 +226,93 @@ class Account:
     def signupSelect(self):
         onSelect = True
         teamSelect = pygame.font.Font("assets/font/font.ttf", 15).render("Select a team", True, (0, 0, 0))
-        bournemouth = Button(self.screen, "Bournemouth", pygame.transform.scale(pygame.image.load("assets/image/Bournemouth.png"), (200, 100), self.username))
-        bournemouth.draw()
-        bournemouth = pygame.transform.scale(pygame.image.load("assets/image/Bournemouth.png"), (200, 100))
-        arsenal = pygame.transform.scale(pygame.image.load("assets/image/Arsenal.png"), (100, 100))
-        astonVilla = pygame.transform.scale(pygame.image.load("assets/image/aston villa.png"), (200, 100))
-        brentford = pygame.transform.scale(pygame.image.load("assets/image/brentford.png"), (200, 100))
-        brighton = pygame.transform.scale(pygame.image.load("assets/image/brighton.png"), (200, 100))
-        chelsea = pygame.transform.scale(pygame.image.load("assets/image/chelsea.png"), (200, 100))
-        crystalPalace = pygame.transform.scale(pygame.image.load("assets/image/crystal palace.png"), (200, 100))
-        everton = pygame.transform.scale(pygame.image.load("assets/image/everton.png"), (200, 100))
-        fulham = pygame.transform.scale(pygame.image.load("assets/image/fulham.png"), (200, 100))
-        ipswichTown = pygame.transform.scale(pygame.image.load("assets/image/ipswich town.png"), (200, 100))
-        leicester = pygame.transform.scale(pygame.image.load("assets/image/leicester city.png"), (200, 100))
-        liverpool = pygame.transform.scale(pygame.image.load("assets/image/liverpool.png"), (200, 100))
-        manCity = pygame.transform.scale(pygame.image.load("assets/image/man city.png"), (200, 100))
-        manUnited = pygame.transform.scale(pygame.image.load("assets/image/man united.png"), (200, 100))
-        newcastle = pygame.transform.scale(pygame.image.load("assets/image/newcastle.png"), (200, 100))
-        forest = pygame.transform.scale(pygame.image.load("assets/image/nottingham forest.png"), (200, 100))
-        southampton = pygame.transform.scale(pygame.image.load("assets/image/southampton.png"), (200, 100))
-        tottenham = pygame.transform.scale(pygame.image.load("assets/image/tottenham.png"), (200, 100))
-        westHam = pygame.transform.scale(pygame.image.load("assets/image/west ham.png"), (200, 100))
-        wolves = pygame.transform.scale(pygame.image.load("assets/image/wolves.png"), (200, 100))
+        keys = [50, 130, 220, 310, 400, 500]
+        buttons = {50: ["bournemouth", "arsenal", "aston villa"],
+                   130: ["brentford", "brighton", "chelsea"],
+                   220: ["crystal palace", "everton", "fulham"],
+                   310: ["ipswich town", "leicester", "liverpool"],
+                   400: ["man city", "man united", "newcastle"],
+                   500: ["forest", "southampton", "tottenham"]}
+        bournemouth = pygame.transform.scale(pygame.image.load("assets/image/Bournemouth.png"), (150, 75))
+        arsenal = pygame.transform.scale(pygame.image.load("assets/image/Arsenal.png"), (75, 75))
+        astonVilla = pygame.transform.scale(pygame.image.load("assets/image/aston villa.png"), (100, 100))
+        brentford = pygame.transform.scale(pygame.image.load("assets/image/brentford.png"), (110, 100))
+        brighton = pygame.transform.scale(pygame.image.load("assets/image/brighton.png"), (75, 75))
+        chelsea = pygame.transform.scale(pygame.image.load("assets/image/chelsea.png"), (95, 95))
+        crystalPalace = pygame.transform.scale(pygame.image.load("assets/image/crystal palace.png"), (100, 75))
+        everton = pygame.transform.scale(pygame.image.load("assets/image/everton.png"), (150, 75))
+        fulham = pygame.transform.scale(pygame.image.load("assets/image/fulham.png"), (80, 80))
+        ipswichTown = pygame.transform.scale(pygame.image.load("assets/image/ipswich town.png"), (150, 75))
+        leicester = pygame.transform.scale(pygame.image.load("assets/image/leicester city.png"), (80, 80))
+        liverpool = pygame.transform.scale(pygame.image.load("assets/image/liverpool.png"), (100, 100))
+        manCity = pygame.transform.scale(pygame.image.load("assets/image/man city.png"), (80, 80))
+        manUnited = pygame.transform.scale(pygame.image.load("assets/image/man united.png"), (80, 80))
+        newcastle = pygame.transform.scale(pygame.image.load("assets/image/newcastle.png"), (80, 80))
+        forest = pygame.transform.scale(pygame.image.load("assets/image/nottingham forest.png"), (80, 80))
+        southampton = pygame.transform.scale(pygame.image.load("assets/image/southampton.png"), (80, 80))
+        tottenham = pygame.transform.scale(pygame.image.load("assets/image/tottenham.png"), (80, 80))
+        westHam = pygame.transform.scale(pygame.image.load("assets/image/west ham.png"), (75, 75))
+        wolves = pygame.transform.scale(pygame.image.load("assets/image/wolves.png"), (80, 80))
         while onSelect:
             self.screen.fill((0, 158, 5))
             self.screen.blit(teamSelect, (45,25))
-            self.screen.blit(bournemouth, (0, 100))
-            self.screen.blit(arsenal, (150, 100))
-            self.screen.blit(astonVilla, (0, 200))
-            self.screen.blit(brentford, (150, 200))
-            self.screen.blit(brighton, (0, 300))
-            self.screen.blit(chelsea, (150, 300))
-            self.screen.blit(crystalPalace, (0, 400))
-            self.screen.blit(everton, (150, 400))
-            self.screen.blit(fulham, (0, 500))
-            self.screen.blit(ipswichTown, (150, 500))
-            self.screen.blit(leicester, (0, 600))
-            self.screen.blit(liverpool, (150, 600))
-            self.screen.blit(manCity, (0, 650))
-            self.screen.blit(manUnited, (150, 650))
-            self.screen.blit(newcastle, (0, 700))
-            self.screen.blit(forest, (150, 700))
-            self.screen.blit(southampton, (0, 500))
-            self.screen.blit(tottenham, (0, 500))
-            self.screen.blit(westHam, (0, 500))
-            self.screen.blit(wolves, (0, 500))
+            self.screen.blit(bournemouth, (0, 50))
+            self.screen.blit(arsenal, (124.5, 50))
+            self.screen.blit(astonVilla, (200, 38))
+            self.screen.blit(brentford, (20, 125))
+            self.screen.blit(brighton, (125, 138))
+            self.screen.blit(chelsea, (202, 128))
+            self.screen.blit(crystalPalace, (20, 225))
+            self.screen.blit(everton, (88, 230))
+            self.screen.blit(fulham, (210, 228))
+            self.screen.blit(ipswichTown, (-5, 318))
+            self.screen.blit(leicester, (125, 315))
+            self.screen.blit(liverpool, (200, 305))
+            self.screen.blit(manCity, (30, 410))
+            self.screen.blit(manUnited, (126, 411))
+            self.screen.blit(newcastle, (215, 410))
+            self.screen.blit(forest, (30, 505))
+            self.screen.blit(southampton, (123, 505))
+            self.screen.blit(tottenham, (215, 505))
+            self.screen.blit(westHam, (80, 605))
+            self.screen.blit(wolves, (178, 600))
+            blockSize = 30 #Set the size of the grid block
+            for x in range(0, 324, blockSize):
+                for y in range(0, 720, blockSize):
+                    rect = pygame.Rect(x, y, blockSize, blockSize)
+                    pygame.draw.rect(self.screen, (255, 255, 255), rect, 1)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     onSelect = False
                     pygame.quit()
                     sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    posX = pygame.mouse.get_pos()[0]
+                    posY = pygame.mouse.get_pos()[1]
+                    indexX = 0
+                    indexY = 0
+                    i = 0
+                    for key in buttons:
+                        print(key)
+                        if posY <= key:
+                            indexY = i -1
+                            if indexY == -1:
+                                self.signupSelect()
+                        else:
+                            i += 1
+                    for i in range(len(buttons[key])):
+                        if 0 <= posX < 120:
+                            indexX = 0
+                        elif 120 <= posX < 210:
+                            indexX = 1
+                        else:
+                            indexX = 2
+                    print(keys[indexY])
+                    print("test above")
+                    f = open("src/userData.txt", "a")
+                    f.write(buttons[keys[indexY]][indexX])
+                    f.close()
+
             pygame.display.flip()
 
 
