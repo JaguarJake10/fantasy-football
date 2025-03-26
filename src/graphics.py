@@ -3,10 +3,6 @@ from account import *
 
 class Graphics:
     def __init__(self):
-        pygame.init()
-        self.WIDTH = 324
-        self.HEIGHT = 720
-        self.screen=pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.display.set_caption('Fantasy Football')
         bg = pygame.transform.scale(pygame.image.load("assets/image/pitch.jpg"), (self.HEIGHT, self.WIDTH))
         self.bg = pygame.transform.rotate(bg, 90)

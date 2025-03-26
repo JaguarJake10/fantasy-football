@@ -1,5 +1,4 @@
 import pygame, sys
-from button import *
 pygame.init()
 
 class Account:
@@ -226,13 +225,14 @@ class Account:
     def signupSelect(self):
         onSelect = True
         teamSelect = pygame.font.Font("assets/font/font.ttf", 15).render("Select a team", True, (0, 0, 0))
-        keys = [50, 130, 220, 310, 400, 500]
+        keys = [50, 130, 220, 310, 400, 500, 595]
         buttons = {50: ["bournemouth", "arsenal", "aston villa"],
                    130: ["brentford", "brighton", "chelsea"],
                    220: ["crystal palace", "everton", "fulham"],
                    310: ["ipswich town", "leicester", "liverpool"],
                    400: ["man city", "man united", "newcastle"],
-                   500: ["forest", "southampton", "tottenham"]}
+                   500: ["forest", "southampton", "tottenham"],
+                   595: ["west ham", "wolves"]}
         bournemouth = pygame.transform.scale(pygame.image.load("assets/image/Bournemouth.png"), (150, 75))
         arsenal = pygame.transform.scale(pygame.image.load("assets/image/Arsenal.png"), (75, 75))
         astonVilla = pygame.transform.scale(pygame.image.load("assets/image/aston villa.png"), (100, 100))
@@ -276,11 +276,11 @@ class Account:
             self.screen.blit(tottenham, (215, 505))
             self.screen.blit(westHam, (80, 605))
             self.screen.blit(wolves, (178, 600))
-            blockSize = 30 #Set the size of the grid block
-            for x in range(0, 324, blockSize):
-                for y in range(0, 720, blockSize):
-                    rect = pygame.Rect(x, y, blockSize, blockSize)
-                    pygame.draw.rect(self.screen, (255, 255, 255), rect, 1)
+            #blockSize = 30 #Set the size of the grid block
+            #for x in range(0, 324, blockSize):
+                #for y in range(0, 720, blockSize):
+                    #rect = pygame.Rect(x, y, blockSize, blockSize)
+                    #pygame.draw.rect(self.screen, (255, 255, 255), rect, 1)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     onSelect = False
@@ -292,27 +292,87 @@ class Account:
                     indexX = 0
                     indexY = 0
                     i = 0
+                    found = False
                     for key in buttons:
+                        if key == 595:
+                            break
                         print(key)
                         if posY <= key:
                             indexY = i -1
-                            if indexY == -1:
-                                self.signupSelect()
+                            found = True
                         else:
                             i += 1
-                    for i in range(len(buttons[key])):
-                        if 0 <= posX < 120:
-                            indexX = 0
-                        elif 120 <= posX < 210:
-                            indexX = 1
+                    if not found:
+                        print("Bug 2 found")
+                        if 500 < posY <= 595:
+                            indexY = 5
+                            if 0 <= posX < 120:
+                                indexX = 0
+                            elif 120 <= posX < 210:
+                                indexX = 1
+                            else:
+                                indexX = 2
                         else:
-                            indexX = 2
+                            if posX < 162:
+                                indexX = 0
+                            else:
+                                indexX = 1
+                            indexY = 6
+                        print("Bug found")
+                    else:
+                        for i in range(len(buttons[key])):
+                            if 0 <= posX < 120:
+                                indexX = 0
+                            elif 120 <= posX < 210:
+                                indexX = 1
+                            else:
+                                indexX = 2
+                    
+                    if indexY == 6:
+                        print("This one")
+                        if posX < 162:
+                            indexX = 0
+                        else:
+                            indexX = 1
+                    print(f"({posX}, {posY})")
                     print(keys[indexY])
                     print("test above")
                     f = open("src/userData.txt", "a")
-                    f.write(buttons[keys[indexY]][indexX])
+                    print(indexY)
+                    print(indexX)
+                    print(buttons[keys[indexY]][indexX])
+                    f.write(buttons[keys[indexY]][indexX] + "\n")
                     f.close()
+                    graphics = Graphics(self.screen, 720, 324)
+                    graphics.loop()
 
+            pygame.display.flip()
+
+class Graphics:
+    def __init__(self, screen, HEIGHT, WIDTH):
+        self.screen = screen
+        self.WIDTH = WIDTH
+        self.HEIGHT = HEIGHT
+        bg = pygame.transform.scale(pygame.image.load("assets/image/pitch.jpg"), (self.HEIGHT, self.WIDTH))
+        self.bg = pygame.transform.rotate(bg, 90)
+        self.shirt=pygame.transform.scale(pygame.image.load("assets/shirt/shirt.png"), (50, 50))
+        self.shirt_locations = [(144,108), (72,180), (216,180), (144,612), (144,324), (72,360), (216,360), (36,504), (252,504), (108,540), (180,540)]
+        
+
+
+
+    def loop(self):
+        run = True
+        while run == True:
+            self.screen.blit(self.bg, (0, 0))
+            for i in range(len(self.shirt_locations)):
+                self.screen.blit(self.shirt, (self.shirt_locations[i][0] - 7, self.shirt_locations[i][1] - 7))
+    
+    
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
             pygame.display.flip()
 
 
